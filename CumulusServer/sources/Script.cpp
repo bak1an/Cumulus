@@ -25,7 +25,7 @@
 #include "Poco/Timezone.h"
 #include <math.h>
 extern "C" {
-	#include "lua5.1/lualib.h"
+	#include "lualib.h"
 }
 
 using namespace std;
