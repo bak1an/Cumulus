@@ -61,11 +61,11 @@ private:
 	void initialize(Application& self) {
 		ServerApplication::initialize(self);
 		string configDir = "/etc/";
-		string fallbackLogDir = "/tmp/";
+		string fallbackLogDir = "/tmp/cumulus_logs";
 		loadConfiguration(configDir+config().getString("application.baseName","CumulusServer")+".ini"); // load default configuration files, if present
 		_isInteractive = isInteractive();
 		// logs
-		string logDir(config().getString("logs.directory",fallbackLogDir+"logs"));
+		string logDir(config().getString("logs.directory",fallbackLogDir));
 		File(logDir).createDirectory();
 		_logPath = logDir+"/"+config().getString("logs.name","log")+".";
 		_pLogFile = new File(_logPath+"0");

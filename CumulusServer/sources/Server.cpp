@@ -36,8 +36,8 @@ const string Server::WWWPath;
 
 Server::Server(ApplicationKiller& applicationKiller,const Util::AbstractConfiguration& configurations) : RTMFPServer(configurations.getInt("cores",0)),_pState(Script::CreateState()),_blacklist(configurations.getString("application.dir","./")+"blacklist",*this),_applicationKiller(applicationKiller),_pService(NULL),
 	mails(*this,configurations.getString("smtp.host","localhost"),configurations.getInt("smtp.port",SMTPSession::SMTP_PORT),configurations.getInt("smtp.timeout",60)) {
-	
-	File((string&)WWWPath = configurations.getString("application.dir","./")+"www").createDirectory();
+        string fallbackWWWDir = "/tmp/cumulus_www";
+	File((string&)WWWPath = configurations.getString("www.directory",fallbackWWWDir)).createDirectory();
 	Service::InitGlobalTable(_pState);
 	SCRIPT_BEGIN(_pState)
 		SCRIPT_CREATE_PERSISTENT_OBJECT(Invoker,LUAInvoker,*this)
